@@ -1,8 +1,11 @@
 package br.com.alura.literalura.principal;
 
+import br.com.alura.literalura.model.DadosLivro;
+import br.com.alura.literalura.model.DadosResultado;
 import br.com.alura.literalura.service.ConsumoAPI;
 import br.com.alura.literalura.service.ConverteDados;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -12,6 +15,8 @@ public class Principal {
     private final String URL = "https://gutendex.com/books?search=";
     private ConsumoAPI consumoAPI = new ConsumoAPI();
     private ConverteDados converteDados = new ConverteDados();
+
+
 
     public void exibeMenu() {
         var opcao = -1;
@@ -47,13 +52,17 @@ public class Principal {
         }
     }
 
-    public void buscaLivroPorTitulo() {
+    public DadosResultado buscaDadosLivro() {
         System.out.println("Digite o título do livro: ");
         var nomeLivro = scanner.nextLine();
-
         var json = consumoAPI.obterDados(URL + nomeLivro.replace(" ", "%20"));
-        System.out.println(json);
 
+        DadosResultado dados = converteDados.obterDados(json, DadosResultado.class);
+        return dados;
+    }
 
+    public void buscaLivroPorTitulo() {
+        DadosResultado dados = buscaDadosLivro();
+        System.out.println(dados);
     }
 }
