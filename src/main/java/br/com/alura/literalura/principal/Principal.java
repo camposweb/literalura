@@ -1,10 +1,11 @@
 package br.com.alura.literalura.principal;
 
-import br.com.alura.literalura.model.DadosLivro;
 import br.com.alura.literalura.model.DadosResultado;
+import br.com.alura.literalura.model.Livro;
 import br.com.alura.literalura.service.ConsumoAPI;
 import br.com.alura.literalura.service.ConverteDados;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Principal {
     private ConsumoAPI consumoAPI = new ConsumoAPI();
     private ConverteDados converteDados = new ConverteDados();
 
-
+    private List<Livro> livros = new ArrayList<Livro>();
 
     public void exibeMenu() {
         var opcao = -1;
@@ -42,7 +43,7 @@ public class Principal {
                     buscaLivroPorTitulo();
                     break;
                 case 2:
-
+                    listagemDeTodosOsLivros();
                     break;
                 case 0:
                     System.out.println("Até logo!");
@@ -63,6 +64,15 @@ public class Principal {
 
     public void buscaLivroPorTitulo() {
         DadosResultado dados = buscaDadosLivro();
+        Livro livro = new Livro(dados.resultado().get(0));
+
+        livros.add(livro);
         System.out.println(dados);
+        //livros.forEach(System.out::println);
+        //livros.forEach(l -> System.out.println(l.getAutor()));
+    }
+
+    public void listagemDeTodosOsLivros() {
+        livros.forEach(System.out::println);
     }
 }
