@@ -1,12 +1,25 @@
 package br.com.alura.literalura.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+
 import java.util.Collections;
 import java.util.List;
 
+@Entity
+@Table(name = "livros")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Livro {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String titulo;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<DadosAutor> autor;
 
     private List<String> idioma;
