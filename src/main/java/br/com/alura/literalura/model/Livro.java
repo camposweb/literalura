@@ -3,7 +3,6 @@ package br.com.alura.literalura.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-
 import java.util.Collections;
 import java.util.List;
 
@@ -19,8 +18,8 @@ public class Livro {
     @Column(unique = true)
     private String titulo;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<DadosAutor> autor;
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Autor> autor;
 
     private List<String> idioma;
 
@@ -30,16 +29,20 @@ public class Livro {
 
     public Livro(DadosLivro dadosLivro) {
         this.titulo = dadosLivro.titulo();
-        this.autor = Collections.singletonList(dadosLivro.autor().get(0));
+        List<DadosAutor> dadosAutor = Collections.singletonList(dadosLivro.autor().get(0));
+        this.autor = dadosAutor.stream().map(autor -> new Autor(autor, this)).toList();
+        //dadosAutor.forEach(a-> autor.add(new Autor(a, this)));
+        //this.autor = Collections.singletonList(dadosLivro.autor().get(0));
+        this.autor = Collections.singletonList(new Autor(dadosLivro.autor().get(0), this));
         this.idioma = Collections.singletonList(dadosLivro.idioma().get(0));
         this.numeroDownloads = dadosLivro.numeroDownloads();
     }
 
-    public List<DadosAutor> getAutor() {
+    public List<Autor> getAutor() {
         return autor;
     }
 
-    public void setAutor(List<DadosAutor> autor) {
+    public void setAutor(List<Autor> autor) {
         this.autor = autor;
     }
 

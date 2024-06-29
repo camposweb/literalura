@@ -74,14 +74,20 @@ public class Principal {
     public void buscaLivroPorTitulo() {
         DadosResultado dados = buscaDadosLivro();
         Livro livro = new Livro(dados.resultado().get(0));
-
-        livros.add(livro);
-        System.out.println(dados);
+        //livros.add(livro);
         //livros.forEach(System.out::println);
         //livros.forEach(l -> System.out.println(l.getAutor()));
+        repositorio.save(livro);
+        System.out.println("\n");
+        System.out.println("-----------------------------------------------");
+        System.out.println("Título: " + livro.getTitulo());
+        System.out.println("Autor: " + livro.getAutor());
+        System.out.println("Idioma: " + livro.getIdioma());
+        System.out.println("Downloads: " + livro.getNumeroDownloads());
+        System.out.println("-----------------------------------------------");
     }
 
     public void listagemDeTodosOsLivros() {
-        livros.forEach(System.out::println);
+        repositorio.findAll().forEach(System.out::println);
     }
 }
