@@ -2,8 +2,10 @@ package br.com.alura.literalura.principal;
 
 import br.com.alura.literalura.model.DadosResultado;
 import br.com.alura.literalura.model.Livro;
+import br.com.alura.literalura.repository.LivroRepository;
 import br.com.alura.literalura.service.ConsumoAPI;
 import br.com.alura.literalura.service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,13 @@ public class Principal {
     private ConverteDados converteDados = new ConverteDados();
 
     private List<Livro> livros = new ArrayList<Livro>();
+
+    @Autowired
+    private LivroRepository repositorio;
+
+    public Principal(LivroRepository repositorio) {
+        this.repositorio = repositorio;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
