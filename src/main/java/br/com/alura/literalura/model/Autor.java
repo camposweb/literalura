@@ -3,6 +3,8 @@ package br.com.alura.literalura.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "autores")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -24,7 +26,8 @@ public class Autor {
     public Autor() {}
 
     public Autor(DadosAutor dadosAutor, Livro livro) {
-        this.nome = dadosAutor.nome();
+        String[] autor = dadosAutor.nome().split(", ");
+        this.nome = autor[1] + " " + autor[0];
         this.anoNascimento = dadosAutor.anoNascimento();
         this.anoFalecimento = dadosAutor.anoFalecimento();
         this.livro = livro;

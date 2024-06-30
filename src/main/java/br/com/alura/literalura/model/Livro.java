@@ -33,7 +33,7 @@ public class Livro {
         this.autor = dadosAutor.stream().map(autor -> new Autor(autor, this)).toList();
         //dadosAutor.forEach(a-> autor.add(new Autor(a, this)));
         //this.autor = Collections.singletonList(dadosLivro.autor().get(0));
-        this.autor = Collections.singletonList(new Autor(dadosLivro.autor().get(0), this));
+        //this.autor = Collections.singletonList(new Autor(dadosLivro.autor().get(0), this));
         this.idioma = Collections.singletonList(dadosLivro.idioma().get(0));
         this.numeroDownloads = dadosLivro.numeroDownloads();
     }

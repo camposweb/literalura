@@ -78,16 +78,30 @@ public class Principal {
         //livros.forEach(System.out::println);
         //livros.forEach(l -> System.out.println(l.getAutor()));
         repositorio.save(livro);
+        var linguagem = livro.getIdioma().get(0);
+        var autor = livro.getAutor().get(0).getNome();
         System.out.println("\n");
         System.out.println("-----------------------------------------------");
         System.out.println("Título: " + livro.getTitulo());
-        System.out.println("Autor: " + livro.getAutor());
-        System.out.println("Idioma: " + livro.getIdioma());
+        System.out.println("Autor: " + autor);
+        System.out.println("Idioma: " + linguagem);
         System.out.println("Downloads: " + livro.getNumeroDownloads());
         System.out.println("-----------------------------------------------");
     }
 
     public void listagemDeTodosOsLivros() {
-        repositorio.findAll().forEach(System.out::println);
+        System.out.println("Lista de livros");
+        System.out.println("--------------------------------");
+
+        repositorio.findAll().forEach(l ->
+                        System.out.println("\n" +
+                                "\n------------------------------------------" +
+                                "\nTítulo: " + l.getTitulo() + "\n" +
+                                "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                                "Idioma: " + l.getIdioma().get(0) + "\n" +
+                                "Downloads: " + l.getNumeroDownloads() +
+                                "\n------------------------------------------" +
+                                "\n")
+                );
     }
 }
