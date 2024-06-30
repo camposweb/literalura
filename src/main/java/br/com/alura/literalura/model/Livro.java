@@ -21,6 +21,7 @@ public class Livro {
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Autor> autor;
 
+    @Enumerated(EnumType.STRING)
     private List<String> idioma;
 
     private Integer numeroDownloads;
