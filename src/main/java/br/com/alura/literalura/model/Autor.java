@@ -26,8 +26,12 @@ public class Autor {
     public Autor() {}
 
     public Autor(DadosAutor dadosAutor, Livro livro) {
-        String[] autor = dadosAutor.nome().split(", ");
-        this.nome = autor[1] + " " + autor[0];
+        if (dadosAutor.nome().contains(",")) {
+            String[] autor = dadosAutor.nome().split(", ");
+            this.nome = autor[1] + " " + autor[0];
+        } else {
+            this.nome = dadosAutor.nome();
+        }
         this.anoNascimento = dadosAutor.anoNascimento();
         this.anoFalecimento = dadosAutor.anoFalecimento();
         this.livro = livro;
