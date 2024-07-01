@@ -191,7 +191,25 @@ public class Principal {
     public void listagemQuantidadeDeLivrosPorIdioma(){
         System.out.println("Digite o idioma: ");
         var idioma = scanner.nextLine();
-        Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma(idioma);
-        System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
+        //Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma(idioma);
+
+        if(idioma.equalsIgnoreCase("portugues")) {
+            Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("pt");
+            System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
+        } else if (idioma.equalsIgnoreCase("inglês")) {
+            Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("en");
+            System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
+        } else if (idioma.equalsIgnoreCase("espanhol")) {
+            Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("es");
+            System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
+        } else if (idioma.equalsIgnoreCase("italiano")) {
+            Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("it");
+            System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
+        } else if (idioma.equalsIgnoreCase("francês")) {
+            Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("fr");
+            System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
+        } else {
+            System.out.println("Idioma inválido");
+        }
     }
 }
