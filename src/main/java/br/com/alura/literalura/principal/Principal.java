@@ -138,17 +138,81 @@ public class Principal {
     public void listagemPorIdioma() {
         System.out.println("Escolha o idioma: ");
         var idioma = scanner.nextLine();
-        List<Livro> livroIdioma = livroRepositorio.findByIdioma(idioma);
-        livroIdioma.forEach(l ->
-                System.out.println(
-                        "\n------------------------------------------" +
-                                "\nTítulo: " + l.getTitulo() + "\n" +
-                                "Autor: " + l.getAutor().get(0).getNome() + "\n" +
-                                "Idioma: " + l.getIdioma() + "\n" +
-                                "Downloads: " + l.getNumeroDownloads() +
-                                "\n------------------------------------------"
-                )
-        );
+//        List<Livro> livroIdioma = livroRepositorio.findByIdioma(idioma);
+//        livroIdioma.forEach(l ->
+//                System.out.println(
+//                        "\n------------------------------------------" +
+//                                "\nTítulo: " + l.getTitulo() + "\n" +
+//                                "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+//                                "Idioma: " + l.getIdioma() + "\n" +
+//                                "Downloads: " + l.getNumeroDownloads() +
+//                                "\n------------------------------------------"
+//                )
+//        );
+
+        if(idioma.equalsIgnoreCase("portugues")) {
+            List<Livro> livroIdioma = livroRepositorio.findByIdioma("pt");
+            livroIdioma.forEach(l ->
+                    System.out.println(
+                            "\n------------------------------------------" +
+                                    "\nTítulo: " + l.getTitulo() + "\n" +
+                                    "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                                    "Idioma: " + l.getIdioma() + "\n" +
+                                    "Downloads: " + l.getNumeroDownloads() +
+                                    "\n------------------------------------------"
+                    )
+            );
+        } else if (idioma.equalsIgnoreCase("ingles")) {
+            List<Livro> livroIdioma = livroRepositorio.findByIdioma("en");
+            livroIdioma.forEach(l ->
+                    System.out.println(
+                            "\n------------------------------------------" +
+                                    "\nTítulo: " + l.getTitulo() + "\n" +
+                                    "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                                    "Idioma: " + l.getIdioma() + "\n" +
+                                    "Downloads: " + l.getNumeroDownloads() +
+                                    "\n------------------------------------------"
+                    )
+            );
+        } else if (idioma.equalsIgnoreCase("espanhol")) {
+            List<Livro> livroIdioma = livroRepositorio.findByIdioma("es");
+            livroIdioma.forEach(l ->
+                    System.out.println(
+                            "\n------------------------------------------" +
+                                    "\nTítulo: " + l.getTitulo() + "\n" +
+                                    "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                                    "Idioma: " + l.getIdioma() + "\n" +
+                                    "Downloads: " + l.getNumeroDownloads() +
+                                    "\n------------------------------------------"
+                    )
+            );
+        } else if (idioma.equalsIgnoreCase("italiano")) {
+            List<Livro> livroIdioma = livroRepositorio.findByIdioma("it");
+            livroIdioma.forEach(l ->
+                    System.out.println(
+                            "\n------------------------------------------" +
+                                    "\nTítulo: " + l.getTitulo() + "\n" +
+                                    "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                                    "Idioma: " + l.getIdioma() + "\n" +
+                                    "Downloads: " + l.getNumeroDownloads() +
+                                    "\n------------------------------------------"
+                    )
+            );
+        } else if (idioma.equalsIgnoreCase("frances")) {
+            List<Livro> livroIdioma = livroRepositorio.findByIdioma("fr");
+            livroIdioma.forEach(l ->
+                    System.out.println(
+                            "\n------------------------------------------" +
+                                    "\nTítulo: " + l.getTitulo() + "\n" +
+                                    "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                                    "Idioma: " + l.getIdioma() + "\n" +
+                                    "Downloads: " + l.getNumeroDownloads() +
+                                    "\n------------------------------------------"
+                    )
+            );
+        } else {
+            System.out.println("Idioma inválido");
+        }
     }
 
     public void listagemDeTodosOsAutores() {
@@ -201,7 +265,7 @@ public class Principal {
         if(idioma.equalsIgnoreCase("portugues")) {
             Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("pt");
             System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
-        } else if (idioma.equalsIgnoreCase("inglês")) {
+        } else if (idioma.equalsIgnoreCase("ingles")) {
             Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("en");
             System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
         } else if (idioma.equalsIgnoreCase("espanhol")) {
@@ -210,7 +274,7 @@ public class Principal {
         } else if (idioma.equalsIgnoreCase("italiano")) {
             Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("it");
             System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
-        } else if (idioma.equalsIgnoreCase("francês")) {
+        } else if (idioma.equalsIgnoreCase("frances")) {
             Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma("fr");
             System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
         } else {
