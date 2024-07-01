@@ -53,6 +53,7 @@ public class Principal {
                     7 - Listagem de quantidade de livros por idioma
                     8 - Listagem de autores vivos por ano DATABASE
                     9 - Top 10 com mais downloads
+                    10 - Busca de autores por nomes
 
                     0 - Sair
                     """;
@@ -89,6 +90,9 @@ public class Principal {
                     break;
                 case 9:
                     top10MaisDownloads();
+                    break;
+                case 10:
+                    buscaAutoresPorNome();
                     break;
                 case 0:
                     System.out.println("Até logo!");
@@ -306,6 +310,17 @@ public class Principal {
                         "Idioma: " + l.getIdioma() + "\n" +
                         "Downloads: " + l.getNumeroDownloads() +
                         "\n------------------------------------------"
+        ));
+    }
+
+    public void buscaAutoresPorNome() {
+        System.out.println("Digite o nome do autor: ");
+        var nomeAutor = scanner.nextLine();
+        List<Autor> autores = autorRepositorio.findByNomeContainingIgnoreCase(nomeAutor);
+        autores.forEach(a -> System.out.println(
+                "\nNome: " + a.getNome() + "\n" +
+                        "Data de Nascimento: " + a.getAnoNascimento() + "\n" +
+                        "Data de Falecimento: " + a.getAnoFalecimento()
         ));
     }
 }

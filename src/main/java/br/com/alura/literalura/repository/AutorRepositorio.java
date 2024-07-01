@@ -9,4 +9,5 @@ public interface AutorRepositorio  extends JpaRepository<Autor, Long>{
 
     List<Autor> findByAnoFalecimentoLessThanEqual(Integer anoFalecimento);
 
+    List<Autor> findByNomeContainingIgnoreCase(String nome);
 }
