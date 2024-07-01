@@ -1,6 +1,7 @@
 package br.com.alura.literalura.principal;
 
 import br.com.alura.literalura.model.DadosResultado;
+import br.com.alura.literalura.model.Idioma;
 import br.com.alura.literalura.model.Livro;
 import br.com.alura.literalura.repository.LivroRepository;
 import br.com.alura.literalura.service.ConsumoAPI;
@@ -38,6 +39,7 @@ public class Principal {
 
                     1 - Busca de livro por título
                     2 - Listagem de todos os livros
+                    3 - Listagem com base no idioma
 
                     0 - Sair
                     """;
@@ -75,16 +77,14 @@ public class Principal {
         DadosResultado dados = buscaDadosLivro();
         Livro livro = new Livro(dados.resultado().get(0));
         //livros.add(livro);
-        //livros.forEach(System.out::println);
-        //livros.forEach(l -> System.out.println(l.getAutor()));
+
         repositorio.save(livro);
-        var linguagem = livro.getIdioma().get(0);
         var autor = livro.getAutor().get(0).getNome();
         System.out.println("\n");
         System.out.println("-----------------------------------------------");
         System.out.println("Título: " + livro.getTitulo());
         System.out.println("Autor: " + autor);
-        System.out.println("Idioma: " + linguagem);
+        System.out.println("Idioma: " + livro.getIdioma());
         System.out.println("Downloads: " + livro.getNumeroDownloads());
         System.out.println("-----------------------------------------------");
     }
@@ -94,14 +94,14 @@ public class Principal {
         System.out.println("--------------------------------");
 
         repositorio.findAll().forEach(l ->
-                        System.out.println("\n" +
+                        System.out.println(
                                 "\n------------------------------------------" +
                                 "\nTítulo: " + l.getTitulo() + "\n" +
                                 "Autor: " + l.getAutor().get(0).getNome() + "\n" +
-                                "Idioma: " + l.getIdioma().get(0) + "\n" +
+                                "Idioma: " + l.getIdioma() + "\n" +
                                 "Downloads: " + l.getNumeroDownloads() +
-                                "\n------------------------------------------" +
-                                "\n")
+                                "\n------------------------------------------"
+                                )
                 );
     }
 }

@@ -21,8 +21,7 @@ public class Livro {
     @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Autor> autor;
 
-    @Enumerated(EnumType.STRING)
-    private List<String> idioma;
+    private String idioma;
 
     private Integer numeroDownloads;
 
@@ -32,10 +31,7 @@ public class Livro {
         this.titulo = dadosLivro.titulo();
         List<DadosAutor> dadosAutor = Collections.singletonList(dadosLivro.autor().get(0));
         this.autor = dadosAutor.stream().map(autor -> new Autor(autor, this)).toList();
-        //dadosAutor.forEach(a-> autor.add(new Autor(a, this)));
-        //this.autor = Collections.singletonList(dadosLivro.autor().get(0));
-        //this.autor = Collections.singletonList(new Autor(dadosLivro.autor().get(0), this));
-        this.idioma = Collections.singletonList(dadosLivro.idioma().get(0));
+        this.idioma = dadosLivro.idioma().get(0);
         this.numeroDownloads = dadosLivro.numeroDownloads();
     }
 
@@ -47,11 +43,11 @@ public class Livro {
         this.autor = autor;
     }
 
-    public List<String> getIdioma() {
+    public String getIdioma() {
         return idioma;
     }
 
-    public void setIdioma(List<String> idioma) {
+    public void setIdioma(String idioma) {
         this.idioma = idioma;
     }
 

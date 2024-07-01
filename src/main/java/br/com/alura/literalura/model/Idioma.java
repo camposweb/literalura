@@ -34,6 +34,22 @@ public enum Idioma {
         this.idiomaPortugues = idiomaPortugues;
     }
 
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public String getIdiomaPortugues() {
+        return idiomaPortugues;
+    }
+
+    public void setIdiomaPortugues(String idiomaPortugues) {
+        this.idiomaPortugues = idiomaPortugues;
+    }
+
     public static Idioma fromString(String text) {
         for (Idioma idiomas : Idioma.values()) {
             if (idiomas.idioma.equalsIgnoreCase(text)) {
@@ -46,7 +62,7 @@ public enum Idioma {
 
     public static Idioma fromPortugues(String text) {
         for (Idioma idiomas : Idioma.values()) {
-            if (idiomas.idioma.equalsIgnoreCase(text)) {
+            if (idiomas.idiomaPortugues.equalsIgnoreCase(text)) {
                 return idiomas;
             }
         }
