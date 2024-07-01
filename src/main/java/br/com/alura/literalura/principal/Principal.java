@@ -20,7 +20,7 @@ public class Principal {
     private ConsumoAPI consumoAPI = new ConsumoAPI();
     private ConverteDados converteDados = new ConverteDados();
 
-    private List<Livro> livros = new ArrayList<Livro>();
+    private List<Livro> livros = new ArrayList<>();
 
     @Autowired
     private LivroRepository repositorio;
@@ -55,6 +55,9 @@ public class Principal {
                     break;
                 case 2:
                     listagemDeTodosOsLivros();
+                    break;
+                case 3:
+                    listagemPorIdioma();
                     break;
                 case 0:
                     System.out.println("Até logo!");
@@ -103,5 +106,21 @@ public class Principal {
                                 "\n------------------------------------------"
                                 )
                 );
+    }
+
+    public void listagemPorIdioma() {
+        System.out.println("Escolha o idioma: ");
+        var idioma = scanner.nextLine();
+        List<Livro> livroIdioma = repositorio.findByIdioma(idioma);
+        livroIdioma.forEach(l ->
+                System.out.println(
+                        "\n------------------------------------------" +
+                                "\nTítulo: " + l.getTitulo() + "\n" +
+                                "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                                "Idioma: " + l.getIdioma() + "\n" +
+                                "Downloads: " + l.getNumeroDownloads() +
+                                "\n------------------------------------------"
+                )
+        );
     }
 }
