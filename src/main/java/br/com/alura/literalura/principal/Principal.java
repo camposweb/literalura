@@ -51,6 +51,7 @@ public class Principal {
                     5 - Listagem de autores por livro
                     6 - Listagem de autores vivos por ano
                     7 - Listagem de quantidade de livros por idioma
+                    8 - Listagem de autores vivos por ano DATABASE
 
                     0 - Sair
                     """;
@@ -81,6 +82,10 @@ public class Principal {
                     break;
                 case 7:
                     listagemQuantidadeDeLivrosPorIdioma();
+                    break;
+                case 8:
+                    listagemDeAutoresVivosPorAnoBD();
+                    break;
                 case 0:
                     System.out.println("Até logo!");
                 default:
@@ -175,7 +180,7 @@ public class Principal {
     }
 
     public void listagemDeAutoresVivosPorAno() {
-        System.out.println("autores");
+        System.out.println("Digite o ano:");
         var ano = scanner.nextInt();
         autores = autorRepositorio.findAll();
 
@@ -211,5 +216,16 @@ public class Principal {
         } else {
             System.out.println("Idioma inválido");
         }
+    }
+
+    public void listagemDeAutoresVivosPorAnoBD() {
+        System.out.println("Digite o ano:");
+        var ano = scanner.nextInt();
+        List<Autor> autores = autorRepositorio.findByAnoFalecimentoLessThanEqual(ano);
+        autores.forEach(a -> System.out.println(
+                "\nNome: " + a.getNome() + "\n" +
+                        "Data de Nascimento: " + a.getAnoNascimento() + "\n" +
+                        "Data de Falecimento: " + a.getAnoFalecimento()
+        ));
     }
 }
