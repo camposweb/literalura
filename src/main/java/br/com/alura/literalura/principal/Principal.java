@@ -40,6 +40,7 @@ public class Principal {
                     1 - Busca de livro por título
                     2 - Listagem de todos os livros
                     3 - Listagem com base no idioma
+                    4 - Listagem de todos os autores
 
                     0 - Sair
                     """;
@@ -58,6 +59,9 @@ public class Principal {
                     break;
                 case 3:
                     listagemPorIdioma();
+                    break;
+                case 4:
+                    listagemDeTodosOsAutores();
                     break;
                 case 0:
                     System.out.println("Até logo!");
@@ -122,5 +126,11 @@ public class Principal {
                                 "\n------------------------------------------"
                 )
         );
+    }
+
+    public void listagemDeTodosOsAutores() {
+        System.out.println("Lista de autores");
+        System.out.println("--------------------------------");
+        repositorio.findAll().forEach(l -> l.getAutor().forEach(a -> System.out.println("\n" + a.getNome())));
     }
 }
