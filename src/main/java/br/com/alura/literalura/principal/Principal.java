@@ -96,6 +96,7 @@ public class Principal {
                     break;
                 case 0:
                     System.out.println("Até logo!");
+                    break;
                 default:
                     System.out.println("Opção inválida");
             }
