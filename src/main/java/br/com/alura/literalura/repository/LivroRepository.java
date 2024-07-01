@@ -10,5 +10,5 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 
     List<Livro> findByIdioma(String Idioma);
 
-
+    Integer countByIdioma(String Idioma);
 }

@@ -26,13 +26,13 @@ public class Principal {
     private List<Autor> autores = new ArrayList<>();
 
     @Autowired
-    private LivroRepository Livrorepositorio;
+    private LivroRepository livroRepositorio;
 
     @Autowired
     private AutorRepositorio autorRepositorio;
 
-    public Principal(LivroRepository Livrorepositorio, AutorRepositorio autorRepositorio) {
-        this.Livrorepositorio = Livrorepositorio;
+    public Principal(LivroRepository livroRepositorio, AutorRepositorio autorRepositorio) {
+        this.livroRepositorio = livroRepositorio;
         this.autorRepositorio = autorRepositorio;
     }
 
@@ -50,6 +50,7 @@ public class Principal {
                     4 - Listagem de todos os autores
                     5 - Listagem de autores por livro
                     6 - Listagem de autores vivos por ano
+                    7 - Listagem de quantidade de livros por idioma
 
                     0 - Sair
                     """;
@@ -78,6 +79,8 @@ public class Principal {
                 case 6:
                     listagemDeAutoresVivosPorAno();
                     break;
+                case 7:
+                    listagemQuantidadeDeLivrosPorIdioma();
                 case 0:
                     System.out.println("Até logo!");
                 default:
@@ -100,7 +103,7 @@ public class Principal {
         Livro livro = new Livro(dados.resultado().get(0));
         //livros.add(livro);
 
-        Livrorepositorio.save(livro);
+        livroRepositorio.save(livro);
         var autor = livro.getAutor().get(0).getNome();
         System.out.println("\n");
         System.out.println("-----------------------------------------------");
@@ -115,7 +118,7 @@ public class Principal {
         System.out.println("Lista de livros");
         System.out.println("--------------------------------");
 
-        Livrorepositorio.findAll().forEach(l ->
+        livroRepositorio.findAll().forEach(l ->
                         System.out.println(
                                 "\n------------------------------------------" +
                                 "\nTítulo: " + l.getTitulo() + "\n" +
@@ -130,7 +133,7 @@ public class Principal {
     public void listagemPorIdioma() {
         System.out.println("Escolha o idioma: ");
         var idioma = scanner.nextLine();
-        List<Livro> livroIdioma = Livrorepositorio.findByIdioma(idioma);
+        List<Livro> livroIdioma = livroRepositorio.findByIdioma(idioma);
         livroIdioma.forEach(l ->
                 System.out.println(
                         "\n------------------------------------------" +
@@ -146,19 +149,49 @@ public class Principal {
     public void listagemDeTodosOsAutores() {
         System.out.println("Lista de autores");
         System.out.println("--------------------------------");
-        Livrorepositorio.findAll().forEach(l -> l.getAutor().forEach(a -> System.out.println("\n" + a.getNome())));
+        autores = autorRepositorio.findAll();
+
+        autores.forEach(a -> System.out.println(
+                "\n------------------------------------------" +
+                        "\nNome: " + a.getNome() + "\n" +
+                        "Data de Nascimento: " + a.getAnoNascimento() + "\n" +
+                        "Data de Falecimento: " + a.getAnoFalecimento() + "\n" +
+                        "------------------------------------------"
+        ));
     }
 
     public void listagemDeAutoresPorLivro() {
         System.out.println("Escolha o livro: ");
         var titulo = scanner.nextLine();
-        livros = Livrorepositorio.findAll();
+        livros = livroRepositorio.findAll();
 
         livros.stream()
                 .filter(l -> l.getTitulo().equalsIgnoreCase(titulo))
-                .forEach(l -> l.getAutor().forEach(a -> System.out.println("\n" + a.getNome())));
+                .forEach(l -> l.getAutor().forEach(a -> System.out.println(
+                        "\nAutor: " + a.getNome() + "\n" +
+                                "Data de Nascimento: " + a.getAnoNascimento() + "\n" +
+                                "Data de Falecimento: " + a.getAnoFalecimento()
+                )));
     }
 
     public void listagemDeAutoresVivosPorAno() {
+        System.out.println("autores");
+        var ano = scanner.nextInt();
+        autores = autorRepositorio.findAll();
+
+        autores.stream()
+                .filter(a -> a.getAnoFalecimento() != null && a.getAnoFalecimento() <= ano)
+                .forEach(a -> System.out.println(
+                        "\nNome: " + a.getNome() + "\n" +
+                                "Data de Nascimento: " + a.getAnoNascimento() + "\n" +
+                                "Data de Falecimento: " + a.getAnoFalecimento()
+                ));
+    }
+
+    public void listagemQuantidadeDeLivrosPorIdioma(){
+        System.out.println("Digite o idioma: ");
+        var idioma = scanner.nextLine();
+        Integer quantidadeLivroIdioma = livroRepositorio.countByIdioma(idioma);
+        System.out.println("Quantidade de livros com o idioma " + idioma + ": " + quantidadeLivroIdioma);
     }
 }
