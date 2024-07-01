@@ -52,6 +52,7 @@ public class Principal {
                     6 - Listagem de autores vivos por ano
                     7 - Listagem de quantidade de livros por idioma
                     8 - Listagem de autores vivos por ano DATABASE
+                    9 - Top 10 com mais downloads
 
                     0 - Sair
                     """;
@@ -85,6 +86,9 @@ public class Principal {
                     break;
                 case 8:
                     listagemDeAutoresVivosPorAnoBD();
+                    break;
+                case 9:
+                    top10MaisDownloads();
                     break;
                 case 0:
                     System.out.println("Até logo!");
@@ -290,6 +294,18 @@ public class Principal {
                 "\nNome: " + a.getNome() + "\n" +
                         "Data de Nascimento: " + a.getAnoNascimento() + "\n" +
                         "Data de Falecimento: " + a.getAnoFalecimento()
+        ));
+    }
+
+    public void top10MaisDownloads() {
+        List<Livro> livros = livroRepositorio.findTop10ByOrderByNumeroDownloadsDesc();
+        livros.forEach(l -> System.out.println(
+                "\n------------------------------------------" +
+                        "\nTítulo: " + l.getTitulo() + "\n" +
+                        "Autor: " + l.getAutor().get(0).getNome() + "\n" +
+                        "Idioma: " + l.getIdioma() + "\n" +
+                        "Downloads: " + l.getNumeroDownloads() +
+                        "\n------------------------------------------"
         ));
     }
 }
