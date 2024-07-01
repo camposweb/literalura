@@ -1,8 +1,9 @@
 package br.com.alura.literalura.principal;
 
+import br.com.alura.literalura.model.Autor;
 import br.com.alura.literalura.model.DadosResultado;
-import br.com.alura.literalura.model.Idioma;
 import br.com.alura.literalura.model.Livro;
+import br.com.alura.literalura.repository.AutorRepositorio;
 import br.com.alura.literalura.repository.LivroRepository;
 import br.com.alura.literalura.service.ConsumoAPI;
 import br.com.alura.literalura.service.ConverteDados;
@@ -22,11 +23,17 @@ public class Principal {
 
     private List<Livro> livros = new ArrayList<>();
 
-    @Autowired
-    private LivroRepository repositorio;
+    private List<Autor> autores = new ArrayList<>();
 
-    public Principal(LivroRepository repositorio) {
-        this.repositorio = repositorio;
+    @Autowired
+    private LivroRepository Livrorepositorio;
+
+    @Autowired
+    private AutorRepositorio autorRepositorio;
+
+    public Principal(LivroRepository Livrorepositorio, AutorRepositorio autorRepositorio) {
+        this.Livrorepositorio = Livrorepositorio;
+        this.autorRepositorio = autorRepositorio;
     }
 
     public void exibeMenu() {
@@ -35,12 +42,14 @@ public class Principal {
             var menu = """
                     \n
                     Menu
-                    -----------------
+                    ---------------------------------------
 
                     1 - Busca de livro por título
                     2 - Listagem de todos os livros
                     3 - Listagem com base no idioma
                     4 - Listagem de todos os autores
+                    5 - Listagem de autores por livro
+                    6 - Listagem de autores vivos por ano
 
                     0 - Sair
                     """;
@@ -62,6 +71,12 @@ public class Principal {
                     break;
                 case 4:
                     listagemDeTodosOsAutores();
+                    break;
+                case 5:
+                    listagemDeAutoresPorLivro();
+                    break;
+                case 6:
+                    listagemDeAutoresVivosPorAno();
                     break;
                 case 0:
                     System.out.println("Até logo!");
@@ -85,7 +100,7 @@ public class Principal {
         Livro livro = new Livro(dados.resultado().get(0));
         //livros.add(livro);
 
-        repositorio.save(livro);
+        Livrorepositorio.save(livro);
         var autor = livro.getAutor().get(0).getNome();
         System.out.println("\n");
         System.out.println("-----------------------------------------------");
@@ -100,7 +115,7 @@ public class Principal {
         System.out.println("Lista de livros");
         System.out.println("--------------------------------");
 
-        repositorio.findAll().forEach(l ->
+        Livrorepositorio.findAll().forEach(l ->
                         System.out.println(
                                 "\n------------------------------------------" +
                                 "\nTítulo: " + l.getTitulo() + "\n" +
@@ -115,7 +130,7 @@ public class Principal {
     public void listagemPorIdioma() {
         System.out.println("Escolha o idioma: ");
         var idioma = scanner.nextLine();
-        List<Livro> livroIdioma = repositorio.findByIdioma(idioma);
+        List<Livro> livroIdioma = Livrorepositorio.findByIdioma(idioma);
         livroIdioma.forEach(l ->
                 System.out.println(
                         "\n------------------------------------------" +
@@ -131,6 +146,19 @@ public class Principal {
     public void listagemDeTodosOsAutores() {
         System.out.println("Lista de autores");
         System.out.println("--------------------------------");
-        repositorio.findAll().forEach(l -> l.getAutor().forEach(a -> System.out.println("\n" + a.getNome())));
+        Livrorepositorio.findAll().forEach(l -> l.getAutor().forEach(a -> System.out.println("\n" + a.getNome())));
+    }
+
+    public void listagemDeAutoresPorLivro() {
+        System.out.println("Escolha o livro: ");
+        var titulo = scanner.nextLine();
+        livros = Livrorepositorio.findAll();
+
+        livros.stream()
+                .filter(l -> l.getTitulo().equalsIgnoreCase(titulo))
+                .forEach(l -> l.getAutor().forEach(a -> System.out.println("\n" + a.getNome())));
+    }
+
+    public void listagemDeAutoresVivosPorAno() {
     }
 }
