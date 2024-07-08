@@ -258,7 +258,7 @@ public class Principal {
         autores = autorRepositorio.findAll();
 
         autores.stream()
-                .filter(a -> a.getAnoFalecimento() != null && a.getAnoFalecimento() <= ano)
+                .filter(a -> a.getAnoFalecimento() != null && ano <= a.getAnoFalecimento())
                 .forEach(a -> System.out.println(
                         "\nNome: " + a.getNome() + "\n" +
                                 "Data de Nascimento: " + a.getAnoNascimento() + "\n" +
